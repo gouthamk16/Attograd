@@ -24,7 +24,7 @@ We welcome contributions to this project! Feel free to open pull requests with n
 
 **License:**
 
-This project is licensed under the MIT License (see LICENSE file for details).
+This project is unlicensed.
 
 **Disclaimer:**
 
