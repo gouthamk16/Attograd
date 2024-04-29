@@ -12,7 +12,7 @@ This repository currently implements a basic Perceptron model. More complex arch
 This is a work-in-progress project, and there is no formal installation method yet. To use the current code:
 
 1.  Clone this repository.
-2.  Install any required dependencies listed in `requirements.txt` (if it exists).
+2.  Install the required dependencies listed in `requirements.txt`.
 
 **Basic Usage (Perceptron Example):**
 
