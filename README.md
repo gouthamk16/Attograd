@@ -14,7 +14,7 @@ This is a work-in-progress project, and there is no formal installation method y
 1.  Clone this repository.
 2.  Install the required dependencies listed in `requirements.txt`.
 
-Use code [with caution.](/faq#coding)
+Use code with caution
 
 content_copy
 
