@@ -16,8 +16,6 @@ This is a work-in-progress project, and there is no formal installation method y
 
 Use code with caution
 
-content_copy
-
 **Contributing:**
 
 We welcome contributions to this project! Feel free to open pull requests with new features, bug fixes, or improvements to the documentation.
