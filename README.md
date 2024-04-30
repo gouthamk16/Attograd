@@ -19,7 +19,7 @@ Use code with caution
 **TO-DO**
 
 1. Implement Tensor class and methods for addition and multiplication
-2. Implement single layer nn
+2. Implement multi layer nn (linear)
 4. Implement gradcheck on the Perceptron (numerical)
 
 **Contributing:**
