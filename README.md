@@ -16,6 +16,12 @@ This is a work-in-progress project, and there is no formal installation method y
 
 Use code with caution
 
+**TO-DO**
+
+1. Implement Tensor class and methods for addition and multiplication
+2. Implement single layer nn
+4. Implement gradcheck on the Perceptron (numerical)
+
 **Contributing:**
 
 We welcome contributions to this project! Feel free to open pull requests with new features, bug fixes, or improvements to the documentation.
