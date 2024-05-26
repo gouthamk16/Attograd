@@ -21,3 +21,4 @@ def maeLoss(z, target):
     for i in range(len(target)):
         sum += abs(z[i] - target[i])
     return sum/len(target)
+

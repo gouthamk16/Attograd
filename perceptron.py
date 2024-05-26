@@ -1,7 +1,3 @@
-#1. Creating a perceptron for NAND logic function - DONE
-#2. Create a two layer neuron to perform forward propagation (Linear)
-#3. Create a two layer neuron to perform forward propagation Sigmoid)
-#4. Create a two layer neuron to perform forward and backward propagation using gradient descent (sigmoid)
 
 ## Perceptron for NAND function
 import numpy as np
@@ -38,7 +34,7 @@ class MPNeuron():
             for x1, x2 in x:
                 self.weights[0] = self.weights[0] + self.lr * (target-self.output) * x1
                 self.weights[1] = self.weights[1] + self.lr * (target-self.output) * x2
-                self.bias = self.lr * (target-self.output)
+                # self.bias = self.lr * (target-self.output)
 
 # Defining the input data (NAND truth table)
 x = [[0, 0],
@@ -76,5 +72,3 @@ def plotGrad(loss):
     plt.show()
 
 # plotGrad(loss_history)
-
-# Making the neuron learn by itself - loss function and gradient descent 

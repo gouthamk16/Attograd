@@ -1,0 +1,2 @@
+#1. Creating a perceptron for NAND logic function - DONE
+#2. Create a two layer ann to perform forward and backward prop (linear opt, mse loss fn)
