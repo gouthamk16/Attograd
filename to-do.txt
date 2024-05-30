@@ -1,1 +1,2 @@
 1. Create a two layer ann to perform forward and backward prop (linear opt, mse loss fn)
+2. Implementing tensor class and methods.
