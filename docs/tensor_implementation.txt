@@ -1,0 +1,40 @@
+# Implementing a simple neuron using the tensor class
+
+# Forward Propagation
+x1 = Tensor(2.0, label='x1')
+x2 = Tensor(0.0, label='x2')
+# Weights w1, w2
+w1 = Tensor(-3.0, label='w1')
+w2 = Tensor(1.0, label='w2')
+# bias
+b = Tensor(6.7, label='b')
+
+x1w1 = x1 * w1; x1w1.label='x1*w1'
+x2w2 = x2 * w2; x2w2.label='x2*w2'
+
+x1w1x2w2 = x1w1 + x2w2; x1w1x2w2.label = 'x1*w1 + x2*w2'
+n = x1w1x2w2 + b; n.label = 'n'
+
+# Activation Function (tanh)
+o = n.tanh(); o.label='o'
+
+# Starging off with the backpropagation
+
+# Manual gradcheck
+# o.grad = 1
+# # o = tanh(n)
+# # n.grad = do/dn = 1 - o^2
+# n.grad = 0.5
+# x1w1x2w2.grad = 0.5
+# b.grad = 0.5
+# x1w1.grad = 0.5
+# x2w2.grad = 0.5
+# x2.grad = w2.data * x2w2.grad
+# w2.grad = x2.data * x2w2.grad
+# x1.grad = w1.data * x1w1.grad
+# w1.grad = x1.data * x1w1.grad
+
+# Implemented the backpropagation loggic inside the Tensor class
+o.backward()
+
+draw_dot(o)

@@ -27,7 +27,16 @@ class Adam(Optimizer):
         self.v = [np.zeros_like(t.data) for t in self.params]
     
     def descent(self):
+        self.t += 1
         for i, t in enumerate(self.params):
-            self.t += 1
-            self.m[i]
-            # Not imeplemented yet ...................
+            grad = t.grad
+            
+            self.m[i] = self.b1 * self.m[i] + (1 - self.b1) * grad #Biased First Moment Estimate
+            self.v[i] = self.b2 * self.v[i] + (1 - self.b2) * (grad ** 2) #Biased Second Moment Estimate
+            
+            m_hat = self.m[i] / (1 - self.b1 ** self.t) #Bias-Corrected First Moment Estimate
+            v_hat = self.v[i] / (1 - self.b2 ** self.t) #Bias-Corrected Second Moment Estimate
+            
+            t.data -= self.lr * m_hat / (np.sqrt(v_hat) + self.eps) 
+            
+            

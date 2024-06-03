@@ -1,2 +1,0 @@
-1. Create a multi layer fully connected ann to perform forward and backward prop for XOR function (SGD)
-2. Implementing tensor class and methods.
