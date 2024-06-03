@@ -16,11 +16,12 @@ This is a work-in-progress project, and there is no formal installation method y
 
 Use code with caution
 
-**TO-DO**
+**TO-DO** (1-Highest Priority)
 
-1. Implement Tensor class and methods for addition and multiplication
-2. Implement multi layer nn (linear)
-4. Implement gradcheck on the Perceptron (numerical)
+1. Test the tensor implementation (tensor.py)
+2. Implement a simple gradcheck for the tensor implementation (for all grad functions)
+3. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
+4. Implement fully connected nn.
 
 **Contributing:**
 
