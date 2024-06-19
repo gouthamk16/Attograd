@@ -22,6 +22,8 @@ Use code with caution
 2. Implement a simple gradcheck for the tensor implementation (for all grad functions)
 3. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
 4. Implement fully connected nn.
+5. Implement reverse addition, subtraction, etc. (like rmul) to rearrange arguments as per need
+6. Implement broadcasting
 
 **Contributing:**
 
