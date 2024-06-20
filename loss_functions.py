@@ -7,18 +7,22 @@
 # KL Divergence loss
 # Logits of BCE, MSE and MAE
 
+from tensor import Tensor
+
 # Mean squared error
 def mseLoss(z, target):
+    z.data = z.data.flatten()
+    target = target.data.flatten()
     sum = 0
-    for i in range(len(target)):
+    for i in range(target.length()):
         interim_sum = z[i] - target[i]
-        sum = sum + (interim_sum ** 2)
-    return sum/len(target)
+        sum = (interim_sum ** 2) + sum  
+    return sum/target.length()
 
 # Mean absolute error
 def maeLoss(z, target):
     sum = 0
-    for i in range(len(target)):
+    for i in range(target.length()):
         sum += abs(z[i] - target[i])
-    return sum/len(target)
+    return sum/target.length()
 

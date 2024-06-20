@@ -1,4 +1,4 @@
-
+## Initial Implementation of the Perceptron Algorithm - Sample (Delete Later)
 ## Perceptron for NAND function
 import numpy as np
 import matplotlib.pyplot as plt

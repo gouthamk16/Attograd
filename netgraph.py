@@ -1,3 +1,5 @@
+## Visualize your neural net
+
 from graphviz import Digraph, ExecutableNotFound
 from tensor import Tensor
 

@@ -2,3 +2,5 @@
 2. Tensor class - Check the grad function of 'log'
 3. Tensor class - Perform a numeric gradcheck
 4. Tensor class -    Implement One hot encoding, Implement dot product, Implement min, max, and mean methods
+5. Resolve reverse addition i.e, other comes in place of self (just like we did for __rmul__)
+6. Implement broadcasting

@@ -6,6 +6,7 @@
 
 import numpy as np
 from optimizers import SGD
+from tensor import Tensor
 
 class Layer:
     def __init__(self):
@@ -14,16 +15,41 @@ class Layer:
         self.gradWeights = None
         self.gradBias = None
 
-class Dense(Layer):
-    def __init__(self, input_size, output_size):
-        self.weights = np.random.rand(input_size, output_size) - 0.5
-        self.bias = np.random.rand(1, output_size) - 0.5
+class Linear(Layer):
+
+    def __init__(self, input_size, output_size, bias=True):
+        self.weight = Tensor.random((input_size, output_size)) / input_size**0.5
+        self.bias = Tensor.zeros(output_size) if bias else None
+
     def forward(self, x):
         self.input = x
-        self.output = np.dot(self.input, self.weights) + self.bias
+        self.output = x.matmul(self.weight)
+        if self.bias is not None:
+            self.output += self.bias
         return self.output
-    def backprop(self, error, lr, optimizer):
-        if (optimizer == "SGD"):
-            self.grad = SGD()
-            self.weights = self.weights - lr * self.gradWeights
-            self.bias = self.bias - lr * self.grqadBias
+    
+    def params(self):
+        return [self.weight] + ([] if self.bias is None else [self.bias])
+    
+    ### BACKPROP - HOW? ########
+    # Gradient descent implemented in the tensor class - how tf do we connect them?
+    # Check pytorch docs to see how they did it
+
+    # def backprop(self, error, lr, optimizer):
+    #     if (optimizer == "SGD"):
+    #         self.grad = SGD()
+    #         self.weights = self.weights - lr * self.gradWeights
+    #         self.bias = self.bias - lr * self.gradBias
+
+    ## Don't push yet, keep this class implementation as it is
+
+class Sequential:
+    def __init__(self, layers):
+        self.layers = layers
+    def __call__(self, x):
+        for layer in self.layers:
+            x = layer.forward(x)
+        self.out = x
+        return self.out
+    def parameters(self):
+        return [p for layer in self.layers for p in layer.params()]

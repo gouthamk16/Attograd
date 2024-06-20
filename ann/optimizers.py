@@ -1,4 +1,6 @@
 # Implementing SGD and Adam
+## To do : Numerical check of Adam
+
 import numpy as np
 
 class Optimizer:

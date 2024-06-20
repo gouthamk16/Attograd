@@ -6,9 +6,12 @@ import matplotlib.pyplot as plt
 ## THE GRADIENT EQUATION OF THE 'LOG' FUNCTION NEEDS TO BE CHECKED
 ######
 
+## Implement broadcasting
+## Resolve reverse addition i.e, other comes in place of self (just like we did for __rmul__)
+
 class Tensor:
 
-    def _init_(self, data, _children=(), _op='', label=''):
+    def __init__(self, data, _children=(), _op='', label=''):
         self.data = np.array(data)
         self.grad = 0
         self._backward = lambda: None
@@ -16,8 +19,11 @@ class Tensor:
         self._op = _op
         self.label = label
     
-    def _repr_(self):
+    def __repr__(self):
         return f"Tensor(data={self.data})"
+    
+    def __getitem__(self, idx):
+        return Tensor(self.data[idx])
     
     def toTensor(arr):
         return Tensor(arr)
@@ -32,9 +38,9 @@ class Tensor:
         if dtype=="float32":
             if value_range:
                 low, high = value_range
-                return Tensor(np.random.rand(low, high, size=shape).astype(np.float32))
+                return Tensor(np.random.uniform(low, high, size=shape).astype(np.float32))
             else:
-                return Tensor(np.random.rand(size=shape).astype(np.float32))
+                return Tensor(np.random.rand(shape).astype(np.float32))
             
         if dtype=="int32":
             if value_range:
@@ -48,11 +54,14 @@ class Tensor:
     
     def reshape(self, new_shape):
         return Tensor(np.reshape(self.data, new_shape))
+    
+    def length(self):
+        return len(self.data)
 
     def multinomial(probabilities, num_samples, replacement=True):
         if not isinstance(probabilities, Tensor):
             raise ValueError("Probabilities should be of type Tensor")
-        return Tensor(np.random.choice(len(probabilities.data), size=num_samples, replace=replacement, p=probabilities.data))
+        return Tensor(np.random.choices(probabilities.length(), size=num_samples, replace=replacement, p=probabilities.data))
     
 
     def matmul(self, other):
@@ -60,8 +69,10 @@ class Tensor:
             return Tensor(np.matmul(self.data, other.data))
         else:
             raise ValueError("Matrix should be of type tensor")
+        
+    ## Resolve reverse addition i.e, other comes in place of self (just like we did for __rmul__)
 
-    def _add_(self, other):
+    def __add__(self, other):
         other = other if isinstance(other, Tensor) else Tensor(other)
         out = Tensor(self.data + other.data, (self, other), '+')
         def _backward():
@@ -69,8 +80,18 @@ class Tensor:
             other.grad += 1.0 * out.grad
         out._backward = _backward
         return out
+    
+    # subtraction
+    def __sub__(self, other):
+        other = other if isinstance(other, Tensor) else Tensor(other)
+        out = Tensor(self.data - other.data, (self, other), '-')
+        def _backward():
+            self.grad += 1.0 * out.grad
+            other.grad -= 1.0 * out.grad
+        out._backward = _backward
+        return out
 
-    def _mul_(self, other):
+    def __mul__(self, other):
         other = other if isinstance(other, Tensor) else Tensor(other)
         out = Tensor(self.data * other.data, (self, other), '*')
         def _backward():
@@ -79,7 +100,7 @@ class Tensor:
         out._backward = _backward
         return out
 
-    def _pow_(self, other):
+    def __pow__(self, other):
         assert isinstance(other, (int, float)), "dtype should be int or float"
         out = Tensor(self.data*other, (self,), f"*{other}")
         def _backward():
@@ -87,10 +108,10 @@ class Tensor:
         out._backward = _backward
         return out
 
-    def _rmul_(self, other): # for ops reversed eg; other * self
+    def __rmul__(self, other): # for ops reversed eg; other * self
         return self * other
     
-    def _truediv_(self, other):
+    def __truediv__(self, other):
         return self * other**-1
     
     def exp(self):
