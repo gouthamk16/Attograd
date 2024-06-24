@@ -1,14 +1,15 @@
 from tensor import Tensor
 from loss_functions import mseLoss as mse
+from ann.attolayers import Linear, Sequential
 
-target = Tensor.random((1, 10))
-y_pred = Tensor.random((1, 10))
+x = Tensor([1, 2, 3, 4, 5])
+y = Tensor([5])
 
-loss = mse(target, y_pred)
+model = Sequential(
+    [Linear(5, 1)]
+)
 
-print(loss)
+out = model(x)
+print(out)
 
-# a = Tensor.ones((32))
-# b = Tensor.ones((32))
-
-# print(a+b)
+## Training

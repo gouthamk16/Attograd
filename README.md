@@ -18,12 +18,12 @@ Use code with caution
 
 **TO-DO** (1-Highest Priority)
 
-1. Test the tensor implementation (tensor.py)
-2. Implement a simple gradcheck for the tensor implementation (for all grad functions)
-3. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
-4. Implement fully connected nn.
-5. Implement reverse addition, subtraction, etc. (like rmul) to rearrange arguments as per need
-6. Implement broadcasting
+1. Implement a simple gradcheck for the tensor implementation (for all grad functions)
+2. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
+3. Implement fully connected nn.
+4. Implement reverse division
+5. Implement broadcasting
+6. Test the forward pass of the Linear layer implementation (using manual calc)
 
 **Contributing:**
 

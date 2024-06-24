@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 ######
 
 ## Implement broadcasting
-## Resolve reverse addition i.e, other comes in place of self (just like we did for __rmul__)
+## Resolve reverse division
 
 class Tensor:
 
@@ -28,6 +28,15 @@ class Tensor:
     def toTensor(arr):
         return Tensor(arr)
     
+    def toNumpy(self):
+        return self.data
+    
+    def shape(self):
+        return self.data.shape
+    
+    def ndim(self):
+        return self.data.ndim
+    
     def zeros(shape, dtype="float32"):
         return Tensor(np.zeros(shape, dtype))
 
@@ -35,12 +44,15 @@ class Tensor:
         return Tensor(np.ones(shape, dtype))
     
     def random(shape, dtype="float32", value_range=None):
+        if isinstance(shape, int):
+            shape = (shape,)
+
         if dtype=="float32":
             if value_range:
                 low, high = value_range
                 return Tensor(np.random.uniform(low, high, size=shape).astype(np.float32))
             else:
-                return Tensor(np.random.rand(shape).astype(np.float32))
+                return Tensor(np.random.rand(*shape).astype(np.float32))
             
         if dtype=="int32":
             if value_range:
@@ -55,13 +67,16 @@ class Tensor:
     def reshape(self, new_shape):
         return Tensor(np.reshape(self.data, new_shape))
     
-    def length(self):
+    def __len__(self):
         return len(self.data)
+    
+    def flatten(self):
+        return Tensor(self.data.flatten())
 
     def multinomial(probabilities, num_samples, replacement=True):
         if not isinstance(probabilities, Tensor):
             raise ValueError("Probabilities should be of type Tensor")
-        return Tensor(np.random.choices(probabilities.length(), size=num_samples, replace=replacement, p=probabilities.data))
+        return Tensor(np.random.choices(len(probabilities), size=num_samples, replace=replacement, p=probabilities.data))
     
 
     def matmul(self, other):
@@ -111,8 +126,17 @@ class Tensor:
     def __rmul__(self, other): # for ops reversed eg; other * self
         return self * other
     
+    def __radd__(self, other): # for ops reversed eg; other * self
+        return self + other
+    
+    def __rsub__(self, other): # for ops reversed eg; other * self
+        return self - other
+
     def __truediv__(self, other):
         return self * other**-1
+    
+    # def __rtruediv__(self, other): # for ops reversed eg; other * self
+    #     return other * self**-1
     
     def exp(self):
         x = self.data

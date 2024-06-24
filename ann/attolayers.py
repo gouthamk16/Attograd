@@ -5,28 +5,31 @@
 # 4. Max Pooling Layer
 
 import numpy as np
-from optimizers import SGD
+# from optimizers import SGD
 from tensor import Tensor
 
-class Layer:
-    def __init__(self):
-        self.input = None
-        self.output = None
-        self.gradWeights = None
-        self.gradBias = None
+# class Layer:
+#     def __init__(self):
+#         self.input = None
+#         self.output = None
+#         self.gradWeights = None
+#         self.gradBias = None
 
-class Linear(Layer):
+class Linear:
 
     def __init__(self, input_size, output_size, bias=True):
         self.weight = Tensor.random((input_size, output_size)) / input_size**0.5
         self.bias = Tensor.zeros(output_size) if bias else None
 
-    def forward(self, x):
-        self.input = x
-        self.output = x.matmul(self.weight)
+    def __call__(self, x, activation=None):
+        output = sum((wi * xi for wi, xi in zip(self.weight, x)))
         if self.bias is not None:
-            self.output += self.bias
-        return self.output
+            output += self.bias
+        if activation == "tanh":
+            output = output.tanh()
+        elif activation == "sigmoid":
+            output = output.sigmoid()
+        return output
     
     def params(self):
         return [self.weight] + ([] if self.bias is None else [self.bias])
@@ -48,8 +51,8 @@ class Sequential:
         self.layers = layers
     def __call__(self, x):
         for layer in self.layers:
-            x = layer.forward(x)
-        self.out = x
-        return self.out
+            x = layer(x)
+        out = x
+        return out
     def parameters(self):
         return [p for layer in self.layers for p in layer.params()]

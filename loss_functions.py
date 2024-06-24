@@ -11,18 +11,18 @@ from tensor import Tensor
 
 # Mean squared error
 def mseLoss(z, target):
-    z.data = z.data.flatten()
-    target = target.data.flatten()
+    z = z.flatten()
+    target = target.flatten()
     sum = 0
-    for i in range(target.length()):
+    for i in range(len(target)):
         interim_sum = z[i] - target[i]
         sum = (interim_sum ** 2) + sum  
-    return sum/target.length()
+    return sum/len(target)
 
 # Mean absolute error
 def maeLoss(z, target):
     sum = 0
-    for i in range(target.length()):
+    for i in range(len(target)):
         sum += abs(z[i] - target[i])
-    return sum/target.length()
+    return sum/len(target)
 
