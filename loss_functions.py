@@ -10,14 +10,17 @@
 from tensor import Tensor
 
 # Mean squared error
+# def mseLoss(z, target):
+#     z = z.flatten()
+#     target = target.flatten()
+#     sum = 0
+#     for i in range(len(target)):
+#         interim_sum = z[i] - target[i]
+#         sum += (interim_sum ** 2)  
+#     return sum/len(target)
+
 def mseLoss(z, target):
-    z = z.flatten()
-    target = target.flatten()
-    sum = 0
-    for i in range(len(target)):
-        interim_sum = z[i] - target[i]
-        sum += (interim_sum ** 2)  
-    return sum/len(target)
+    return sum([(yout - ygt)**2 for ygt, yout in zip(target, z)]) / len(target)
 
 # Mean absolute error
 def maeLoss(z, target):

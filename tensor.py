@@ -1,13 +1,8 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-
-######
-## THE GRADIENT EQUATION OF THE 'LOG' FUNCTION NEEDS TO BE CHECKED
-######
-
-## Implement broadcasting
-## Resolve reverse division
+# seed
+np.random.seed(0)
 
 class Tensor:
 
@@ -25,6 +20,15 @@ class Tensor:
     def __getitem__(self, idx):
         return Tensor(self.data[idx])
     
+    # Function for item assignment
+    def __setitem__(self, idx, value):
+        # Convert value to a numpy array if it is a Tensor
+        if isinstance(value, Tensor):
+            value = value.data
+        # Ensure value is of compatible shape and type
+        value = np.array(value, dtype=self.data.dtype)
+        self.data[idx] = value
+    
     def toTensor(arr):
         return Tensor(arr)
     
@@ -36,6 +40,10 @@ class Tensor:
     
     def ndim(self):
         return self.data.ndim
+
+    ## Function to get the shape
+    def shape(self):
+        return self.data.shape
     
     def zeros(shape, dtype="float32"):
         return Tensor(np.zeros(shape, dtype))
