@@ -18,12 +18,11 @@ Use code with caution
 
 **TO-DO** (1-Highest Priority)
 
-1. Implement a simple gradcheck for the tensor implementation (for all grad functions)
+1. Implement a simple gradcheck for the tensor implementation (for all functions with grad)
 2. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
-3. Implement fully connected nn.
+3. Test backprop for Linear layer (gradcheck)
 4. Implement reverse division
 5. Implement broadcasting
-6. Test the forward pass of the Linear layer implementation (using manual calc)
 
 **Contributing:**
 

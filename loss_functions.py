@@ -16,7 +16,7 @@ def mseLoss(z, target):
     sum = 0
     for i in range(len(target)):
         interim_sum = z[i] - target[i]
-        sum = (interim_sum ** 2) + sum  
+        sum += (interim_sum ** 2)  
     return sum/len(target)
 
 # Mean absolute error

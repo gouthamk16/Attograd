@@ -117,7 +117,7 @@ class Tensor:
 
     def __pow__(self, other):
         assert isinstance(other, (int, float)), "dtype should be int or float"
-        out = Tensor(self.data*other, (self,), f"*{other}")
+        out = Tensor(self.data**other, (self,), f"**{other}")
         def _backward():
             self.grad += (other * self.data**(other-1)) * out.grad
         out._backward = _backward

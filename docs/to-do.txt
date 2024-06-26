@@ -1,6 +1,0 @@
-1. Create a multi layer fully connected ann to perform forward and backward prop for XOR function (SGD)
-2. Tensor class - Perform a numeric gradcheck
-3. Tensor class -    Implement One hot encoding, Implement dot product, Implement min, max, and mean methods
-4. Resolve reverse division
-5. Implement broadcasting
-6. Test the forward pass of the Linear layer implementation (using manual calc)
