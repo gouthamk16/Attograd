@@ -1,7 +1,7 @@
 from tensor import Tensor
 from loss_functions import mseLoss as mse
 from ann.attolayers import Linear, Sequential
-from netgraph import draw_dot
+from extras.netgraph import draw_dot
 import numpy as np
 
 # x = [1, 2, 3, 4, 5]
