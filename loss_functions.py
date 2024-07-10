@@ -9,23 +9,15 @@
 
 from tensor import Tensor
 
-# Mean squared error
-# def mseLoss(z, target):
-#     z = z.flatten()
-#     target = target.flatten()
-#     sum = 0
-#     for i in range(len(target)):
-#         interim_sum = z[i] - target[i]
-#         sum += (interim_sum ** 2)  
-#     return sum/len(target)
-
+# Mean Squared Error
 def mseLoss(z, target):
     return sum([(yout - ygt)**2 for ygt, yout in zip(target, z)]) / len(target)
 
-# Mean absolute error
+# Mean Absolute Error
 def maeLoss(z, target):
-    sum = 0
-    for i in range(len(target)):
-        sum += abs(z[i] - target[i])
-    return sum/len(target)
+    return sum([abs(yout - ygt) for ygt, yout in zip(target, z)]) / len(target)
+
+# Binary Cross Entropy
+def bceLoss(z, target):
+    return -sum([ygt * Tensor.log(yout) + (1 - ygt) * Tensor.log(1 - yout) for ygt, yout in zip(target, z)]) / len(target)
 

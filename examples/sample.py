@@ -21,8 +21,8 @@ import numpy as np
 np.random.seed(0)
 
 network = Sequential([
-    Linear(3, 4),
-    Linear(4, 1)
+    Linear(3, 4, activation="tanh"),
+    Linear(4, 1, activation="sigmoid")
 ])
 
 # Input tensor
