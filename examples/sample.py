@@ -1,3 +1,8 @@
+import sys
+import os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 from tensor import Tensor
 from loss_functions import mseLoss as mse
 from ann.attolayers import Linear, Sequential
@@ -37,4 +42,5 @@ print(loss)
 loss.backward()
 # Check the gradient of one of the weights
 print(network.layers[0].neurons[0].w[0].grad)
-draw_dot(loss)
+print(network.parameters())   
+# draw_dot(loss)

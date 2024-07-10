@@ -5,6 +5,11 @@
 # 4. Max Pooling Layer
 # 5. Implement Batch Normalization
 
+import sys
+import os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 import numpy as np
 from tensor import Tensor
 
@@ -13,6 +18,10 @@ class Neuron:
     def __init__(self, n_inputs):
         self.w = [Tensor.random(1, value_range=(-1, 1)) for _ in range(n_inputs)] 
         self.b = Tensor.random(1, value_range=(-1, 1))
+
+    # Parameters
+    def parameters(self):
+        return self.w + [self.b]
 
     def __call__(self, x, activation="tanh"):
         act = sum((wi * xi for wi, xi in zip(self.w, x)), self.b) # pairing the w's and the x's
@@ -27,6 +36,9 @@ class Linear:
     def __init__(self, nin, nout, activation="tanh"):
         self.neurons = [Neuron(nin) for _ in range(nout)]
         self.activation = activation
+    
+    def parameters(self):
+        return [p for n in self.neurons for p in n.parameters()]
 
     def __call__(self, x):
         out = [n(x, activation=self.activation) for n in self.neurons]
@@ -36,6 +48,9 @@ class Sequential:
     
     def __init__(self, layers):
         self.layers = layers
+    
+    def parameters(self):
+        return [p for layer in self.layers for p in layer.parameters()]
 
     def __call__(self, x):
         for layer in self.layers:
