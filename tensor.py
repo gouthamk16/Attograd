@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 # seed
 np.random.seed(0)
 
+# Debug the random function - don't use for now
+
 class Tensor:
 
     def __init__(self, data, _children=(), _op='', label=''):
@@ -18,6 +20,8 @@ class Tensor:
         return f"Tensor(data={self.data})"
     
     def __getitem__(self, idx):
+        if self.data.ndim == 0:
+            return self.data
         return Tensor(self.data[idx])
     
     # Function for item assignment
