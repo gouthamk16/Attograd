@@ -9,38 +9,46 @@ from ann.attolayers import Linear, Sequential
 from extras.netgraph import draw_dot
 import numpy as np
 
-# x = [1, 2, 3, 4, 5]
-# y = [5]
-
-
-# model = Linear([4, 4], 5, 1)
-
-# out = model(x)
-# print(out)
-# loss = sum((yout - ygt)**2 for ygt, yout in zip(y, out)) / len(y)
-# print(loss)
-# loss.backward()
-# # out.backward()
-# print(model.layers[0].neurons[0].w[0].grad)
 # Set a seed
 np.random.seed(0)
 
+# Define a simple neural network to test the Linear layer implementation
 network = Sequential([
-    Linear(3, 4, activation="tanh"),
-    Linear(4, 1, activation="sigmoid")
+    Linear(3, 4),
+    Linear(4, 1)
 ])
 
-# Input tensor
-x = Tensor([1, 2, 3])
-y = Tensor([5])
+x = Tensor([
+    [2.0, 3.0, -1.0],
+    [3.0, -1.0, 0.5],
+    [0.5, 1.0, 1.0],
+    [1.0, 1.0, -1.0]
+])
+y = Tensor([1.0, -1.0, -1.0, 1.0])
 
-# Forward pass
-output = network(x)
-print(output)
-loss = mse(output, y)
-print(loss)
-loss.backward()
-# Check the gradient of one of the weights
-print(network.layers[0].neurons[0].w[0].grad)
-print(network.parameters())   
+print(x, y)
+
+# Creating a single training loop quivalent of the above steps
+# Output before training
+# print(network(x))
+def train(network, x, y, lr=0.1, epochs=1000):
+    for i in range(epochs):
+
+        # output = network(x)
+        output = [network(xi) for xi in x]
+        # print(output)
+        # print(y)
+        loss = mse(output, y)
+        # network.zero_grad()
+        loss.backward()
+        network.update(lr=lr)
+        if i % 10 == 0:
+            print(f"Epoch {i}, Loss: {loss.data}")
+
+# Train the network
+train(network, x, y, lr=0.1, epochs=1000)
+# Final output after 1000 epochs
+# print(network(x))
+
+# Visualizing the network
 # draw_dot(loss)
