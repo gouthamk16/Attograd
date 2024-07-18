@@ -24,6 +24,7 @@ Use code with caution
 1. Test both implementations of the weight update function in attolayers.py (line 67)
 2. Linear layer gradcheck
 3. Test the paramter update for Sequential layer
+4. Test the Linear layer implementation on MNIST dataset for digit classification. (Record the loss and accuracy)
 4. Implement one-hot-encoding, max, min, avg, dot product, matmul, reverse division and concatenate methods in the tensor class. 
 5. Test the tensor-gpu class functionality (on a GPU - preferably on both RoCM and Cuda)
 6. Implement Flatten and BatchNorm layers in attolayers.py
