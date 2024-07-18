@@ -1,10 +1,9 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-# seed
-np.random.seed(0)
 
 # Debug the random function - don't use for now
+# Create a function to concat two tensors
 
 class Tensor:
 
@@ -24,12 +23,9 @@ class Tensor:
             return self.data
         return Tensor(self.data[idx])
     
-    # Function for item assignment
     def __setitem__(self, idx, value):
-        # Convert value to a numpy array if it is a Tensor
         if isinstance(value, Tensor):
             value = value.data
-        # Ensure value is of compatible shape and type
         value = np.array(value, dtype=self.data.dtype)
         self.data[idx] = value
     
@@ -45,7 +41,6 @@ class Tensor:
     def ndim(self):
         return self.data.ndim
 
-    ## Function to get the shape
     def shape(self):
         return self.data.shape
     
@@ -108,7 +103,6 @@ class Tensor:
         out._backward = _backward
         return out
     
-    # subtraction
     def __sub__(self, other):
         other = other if isinstance(other, Tensor) else Tensor(other)
         out = Tensor(self.data - other.data, (self, other), '-')

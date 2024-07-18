@@ -21,15 +21,13 @@ Use code with caution
 
 **TO-DO** (1-Highest Priority)
 
-1. Gradcheck for the tensor functions (for all functions with grad)
-2. Test both implementations of the weight update function in attolayers.py
-3. Implement one-hot-encoding, max, min, avg and dot product methods in the tensor class.
-4. Implement matmul in Tensor
-5. Test backprop for Linear layer (gradcheck)
-6. Debug the linear layer backpropagation - currently not working
-7. Test the tensor-gpu class functionality (on a GPU - preferably on both RoCM and Cuda)
-8. Implement reverse division
-9. Implement broadcasting
+1. Test both implementations of the weight update function in attolayers.py (line 67)
+2. Linear layer gradcheck
+3. Test the paramter update for Sequential layer
+4. Implement one-hot-encoding, max, min, avg, dot product, matmul, reverse division and concatenate methods in the tensor class. 
+5. Test the tensor-gpu class functionality (on a GPU - preferably on both RoCM and Cuda)
+6. Implement Flatten and BatchNorm layers in attolayers.py
+7. Implement broadcasting
 
 **Contributing:**
 
