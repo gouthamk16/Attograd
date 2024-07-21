@@ -29,6 +29,7 @@ Use code with caution
 6. Test the tensor-gpu class functionality (on a GPU - preferably on both RoCM and Cuda)
 7. Implement Flatten and BatchNorm layers in attolayers.py
 8. Implement broadcasting
+9. Implement a dataloader (load the one in pytorch).
 
 **Contributing:**
 
