@@ -2,3 +2,4 @@ numpy
 matplotlib
 graphviz
 cupy
+ctypes-callable

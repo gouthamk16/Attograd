@@ -34,4 +34,4 @@ for epoch in range(epochs):
     network.update(lr=lr)
     print(f"Epoch {epoch}, Loss: {loss.data}")
 
-draw_dot(loss)
+# draw_dot(loss)
