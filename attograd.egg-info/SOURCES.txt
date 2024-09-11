@@ -1,0 +1,17 @@
+README.md
+setup.py
+ann/__init__.py
+ann/attolayers.py
+ann/optimizers.py
+attograd.egg-info/PKG-INFO
+attograd.egg-info/SOURCES.txt
+attograd.egg-info/dependency_links.txt
+attograd.egg-info/top_level.txt
+cuda/__init__.py
+cuda/cuda_interface.py
+examples/__init__.py
+examples/sample.py
+extras/__init__.py
+extras/netgraph.py
+perceptron/__init__.py
+perceptron/perceptron.py

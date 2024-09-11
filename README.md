@@ -24,14 +24,13 @@ Use code with caution
 
 1. Test both implementations of the weight update function in attolayers.py (line 67)
 2. Linear layer gradcheck
-3. Test the Linear layer implementation on MNIST dataset for digit classification. (Record the loss and accuracy)
-4. Performance test and optimization for CUDA implementation of matmul in `cuda/vector_ops.cu`.
+3. Test the Linear layer implementation on MNIST dataset for digit classification with and without cuda.
+4. Profiling and optimization for CUDA implementation of matmul in `cuda/vector_ops.cu`.
 5. Test the paramter update for Sequential layer
 6. Implement one-hot-encoding, max, min, avg, dot product, matmul, reverse division and concatenate methods in the tensor class. 
-7. Implement the cuda support for the tensor class (matmul and data to deviceMemory). 
-8. Implement Flatten and BatchNorm layers in attolayers.py
-9. Implement broadcasting
-10. Implement a dataloader (load the one in pytorch).
+7. Implement Flatten and BatchNorm layers in attolayers.py
+8. Implement broadcasting
+9. Implement a dataloader (similar to the one in pytorch).
 
 **Note Regarding CUDA implementation:**
 Matrix Multiplication has been implemented in CUDA - available under `cuda/vector_ops.cu`.

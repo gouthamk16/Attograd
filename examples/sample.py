@@ -1,15 +1,16 @@
-import sys
-import os.path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-
 from tensor import Tensor
 from loss_functions import mseLoss as mse
 import numpy as np
 from ann.attolayers import Linear, Sequential
 from extras.netgraph import draw_dot
+from cuda.cuda_interface import needCuda
 
 # np.random.seed(0)
+
+## specify if you want to use cuda
+needCuda.cuda = False
+
+print(needCuda.cuda)
 
 x = Tensor([1.0, 3.0, 4.0, 2.0])
 y = Tensor([5.0])

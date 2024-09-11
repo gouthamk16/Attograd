@@ -6,13 +6,14 @@
 # 5. Implement Batch Normalization
 
 
-import sys
-import os.path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+# import sys
+# import os.path
+# sys.path.append(
+#     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 import numpy as np
 from tensor import Tensor
+from cuda.cuda_interface import matrixMultiply, needCuda
 
 class Neuron:
 
@@ -25,7 +26,14 @@ class Neuron:
         return [self.w, self.b]
 
     def __call__(self, x, activation):
-        act = sum((wi * xi for wi, xi in zip(self.w, x)), self.b) # pairing the w's and the x's
+
+        ## Matmul in gpu (cuda) -> implementation in cuda
+        if needCuda.cuda:
+            act = Tensor(matrixMultiply(x.data, self.w.data))
+            act = sum(act, self.b)
+        else:
+            act = sum((wi * xi for wi, xi in zip(self.w, x)), self.b) # pairing the w's and the x's
+
         if activation is None:
             out = act
         elif activation=="tanh":

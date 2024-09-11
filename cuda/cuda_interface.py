@@ -1,12 +1,18 @@
 import ctypes
 import numpy as np
 
-lib = ctypes.CDLL('cuda/shared_lib/vector_ops.so')
+lib = ctypes.CDLL('shared_lib/vector_ops.so')
 
 lib.matMul.argtypes = [np.ctypeslib.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS'),
                           np.ctypeslib.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS'),
                             np.ctypeslib.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS'),
                             ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
+
+
+class needCuda:
+    def __init__(self):
+        self.cuda = False
+    
 
 def matrixMultiply(A, B):
     m, n = A.shape
@@ -25,9 +31,9 @@ def matrixMultiply(A, B):
 
     return C
 
-if __name__ == "__main__":
-    A = np.random.rand(100, 100).astype(np.float32)
-    B = np.random.rand(100, 100).astype(np.float32)
+# if __name__ == "__main__":
+#     A = np.random.rand(100, 100).astype(np.float32)
+#     B = np.random.rand(100, 100).astype(np.float32)
 
-    C = matrixMultiply(A, B)
-    print(C)
+#     C = matrixMultiply(A, B)
+#     print(C)

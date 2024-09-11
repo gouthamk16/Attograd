@@ -4,19 +4,23 @@
 import numpy as np
 
 class Optimizer:
+    
     def __init__(self, params):
         self.params = params
 
 class SGD(Optimizer):
+    
     def __init__(self, params, lr):
         super(SGD, self).__init__(params)
         self.lr = lr
+
     def descent(self):
         for t in self.params:
             self.grad = t.data
             t.data -= self.lr * t.grad
 
 class Adam(Optimizer):
+
     def __init__(self, params, lr, b1=0.9, b2=0.999, eps=1e-8):
         super(Adam, self).__init__(params)
         self.lr = lr
