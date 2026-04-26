@@ -1,50 +1,82 @@
-Attograd: A Lightweight Neural Network Framework (WIP)
-------------------------------------------------------
+# Attograd
 
-Attograd is a lightweight framework for building and training neural networks in Python. It offers a simple and intuitive API for defining neural network architectures and training them on datasets.
+A lightweight neural network framework with autograd built from scratch.
 
-**Current Stage (WIP):**
+## Installation
 
-This repository currently implements a basic Perceptron model. More complex architectures and functionalities are actively under development. CUDA support is being developed and can be tested on a gpu (Make sure you have cuda toolkit installed on your device).
+```bash
+git clone https://github.com/gouthamk16/attograd.git
+cd attograd
+pip install -e .
+```
 
-**Installation (For Now):**
+## Quick Start
 
-This is a work-in-progress project, and there is no formal installation method yet. To use the current code:
+```python
+from attograd import Tensor, use_cuda
+from attograd.nn import Linear, Sequential, TanhLayer
+from attograd.loss_functions import mseLoss
 
-1.  Clone this repository.
-2.  Install the required dependencies listed in `docs/requirements.txt` using:
-    ```
-    pip install -r requirements.txt
-    ```
-3. Run the `sample.py` in the `examples` folder to test the current implementation.
+x = [Tensor(2.0), Tensor(3.0), Tensor(-1.0)]
+y = [Tensor(1.0)]
 
-Use code with caution
+net = Sequential([
+    Linear(3, 4, activation='tanh'),
+    Linear(4, 1),
+])
 
-**TO-DO** (1-Highest Priority)
+for epoch in range(100):
+    out = net(x)
+    loss = mseLoss(out, y)
+    net.zero_grad()
+    loss.backward()
+    net.update(lr=0.01)
+```
 
-1. Test both implementations of the weight update function in attolayers.py (line 67)
-2. Linear layer gradcheck
-3. Test the Linear layer implementation on MNIST dataset for digit classification with and without cuda.
-4. Profiling and optimization for CUDA implementation of matmul in `cuda/vector_ops.cu`.
-5. Test the paramter update for Sequential layer
-6. Implement one-hot-encoding, max, min, avg, dot product, matmul, reverse division and concatenate methods in the tensor class. 
-7. Implement Flatten and BatchNorm layers in attolayers.py
-8. Implement broadcasting
-9. Implement a dataloader (similar to the one in pytorch).
+## CUDA Acceleration
 
-**Note Regarding CUDA implementation:**
-Matrix Multiplication has been implemented in CUDA - available under `cuda/vector_ops.cu`.
-Python interface has been provided to use the CUDA implementation using ctypes. 
-Shared library has been created under `cuda/shared_lib/vector_ops.so`.
+CUDA support requires compiling the shared library first. You need `nvcc` (CUDA Toolkit) installed.
 
-**Contributing:**
+**Linux / WSL:**
+```bash
+make cuda
+```
 
-We welcome contributions to this project! Feel free to open pull requests with new features, bug fixes, or improvements to the documentation.
+**Windows (from a terminal with nvcc on PATH):**
+```bash
+nvcc -shared -Xcompiler -fPIC -o attograd/cuda/shared_lib/vector_ops.so attograd/cuda/vector_ops.cu
+```
 
-**License:**
+Once compiled, enable GPU acceleration in your code:
 
-This project is unlicensed.
+```python
+from attograd import use_cuda
 
-**Disclaimer:**
+use_cuda(True)   # use GPU
+use_cuda(False)  # use CPU (default)
+```
 
-This is an early-stage project. The functionalities are subject to change in the future.
+Calling `use_cuda(True)` on a machine without the compiled library raises a `RuntimeError` with instructions.
+
+## Optimizers
+
+```python
+from attograd.nn import SGD, Adam
+
+sgd = SGD(net.parameters(), lr=0.01)
+adam = Adam(net.parameters(), lr=0.001)
+
+loss.backward()
+sgd.step()  # or adam.step()
+net.zero_grad()
+```
+
+## Running Tests
+
+```bash
+pytest
+```
+
+## License
+
+MIT
