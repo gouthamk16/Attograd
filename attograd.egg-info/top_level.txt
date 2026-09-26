@@ -1,5 +1,0 @@
-ann
-cuda
-examples
-extras
-perceptron
